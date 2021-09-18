@@ -1,16 +1,17 @@
 from django.shortcuts import render
 
 class Dev:
-    def __init__(self, name, location, age, remote):
+    def __init__(self, name, location, age, bio, remote):
         self.name = name
         self.location = location
         self.age = age
+        self.bio = bio
         self.remote = remote
 
 devs = [
-    Dev('Ryan', 'Las Vegas, Nv', 21, True),
-    Dev('Jamie', 'Sacramento, Ca', 41, False),
-    Dev('Curtis', 'Phoenix, Az', 30, True)
+    Dev('Ryan', 'Las Vegas, Nv', 21, 'Experimenting with HTML, CSS, and JavaScript; dabbling with Python and Ruby', True),
+    Dev('Jamie', 'Sacramento, Ca', 41, 'A freelance British web designer and developer', False),
+    Dev('Curtis', 'Phoenix, Az', 30, 'Im supposed to come up with a bio?!', True)
 ]
 
 def home(request):
