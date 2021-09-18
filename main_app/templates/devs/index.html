@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Dev List</h1>
+
+{% for dev in devs %}
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ dev.name }}</span>
+        <p>Location: {{ dev.location }}</p>
+        {% if dev.age <= 24 %}
+            <p>Experience: Junior Dev</p>
+        {% elif dev.age > 24 and dev.age < 35 %}
+            <p>Experience: Mid Level Dev</p>
+        {% else %}
+            <p>Experience: Senior Dev</p>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
