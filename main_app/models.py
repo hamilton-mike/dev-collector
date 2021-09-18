@@ -7,3 +7,6 @@ class Dev(models.Model):
     age = models.IntegerField()
     bio = models.TextField(max_length=400)
     remote = models.BooleanField()
+
+    def __str__(self):
+        return self.name
