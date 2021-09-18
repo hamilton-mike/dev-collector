@@ -10,3 +10,7 @@ def about(request):
 def devs_index(request):
     devs = Dev.objects.all()
     return render(request, 'devs/index.html', { 'devs': devs })
+
+def devs_detail(request, dev_id):
+    dev = Dev.objects.get(id=dev_id)
+    return render(request, 'devs/detail.html', { 'dev': dev })
