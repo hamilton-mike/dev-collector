@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from datetime import date
 
 ROUNDS = (
     ('1st', 'First Round'),
@@ -17,12 +19,13 @@ class Language(models.Model):
         return reverse('languages_detail', kwargs={'pk': self.id})
 
 class Dev(models.Model):
-    name = models.CharField(max_length=30)
-    location = models.CharField(max_length=30)
+    name = models.CharField(max_length=60)
+    location = models.CharField(max_length=60)
     age = models.IntegerField()
     bio = models.TextField(max_length=400)
     remote = models.BooleanField(default=False)
     languages = models.ManyToManyField(Language)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
