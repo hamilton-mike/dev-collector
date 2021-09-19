@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Dev
 
 def home(request):
@@ -19,3 +19,11 @@ def devs_detail(request, dev_id):
 class DevCreate(CreateView):
     model = Dev
     fields = '__all__'
+
+class DevUpdate(UpdateView):
+    model = Dev
+    fields = ['name', 'location', 'age', 'bio', 'remote']
+
+class DevDelete(DeleteView):
+    model = Dev
+    success_url = '/devs/'
