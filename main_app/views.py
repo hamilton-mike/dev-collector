@@ -1,9 +1,13 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Dev, Language
+from .models import Dev, Language, Photo
 from .forms import InterviewForm
 import os
+import uuid
+import boto3
+import botocore.exceptions
+
 
 def home(request):
     return render(request, 'home.html')
@@ -71,3 +75,23 @@ class LanguageDelete(DeleteView):
 def assoc_language(request, dev_id, language_id):
     Dev.objects.get(id=dev_id).languages.add(language_id)
     return redirect('detail', dev_id=dev_id)
+
+def add_photo(request, dev_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+    try:
+      bucket = os.environ['S3_BUCKET']
+      s3.upload_fileobj(photo_file, bucket, key)
+      url = f"{os.environ['S3_BASE_URL']}/{key}"
+      print(url)
+      Photo.objects.create(url=url, dev_id=dev_id)
+    except botocore.exceptions.ClientError as error:
+      print('An error occurred uploading file to S3')
+      raise error
+    except botocore.exceptions.ParamValidationError as error:
+      raise ValueError('The parameters you provided are incorrect: {}'.format(error))
+    except:
+      print('An error occurred uploading file to S3')
+  return redirect('detail', dev_id=dev_id)
