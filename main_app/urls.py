@@ -7,4 +7,5 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('devs/', views.devs_index, name='index'),
     path('devs/<int:dev_id>', views.devs_detail, name='detail'),
+    path('devs/create', views.DevCreate.as_view(), name='devs_create'),
 ]

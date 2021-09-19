@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Dev
 
 def home(request):
@@ -14,3 +15,7 @@ def devs_index(request):
 def devs_detail(request, dev_id):
     dev = Dev.objects.get(id=dev_id)
     return render(request, 'devs/detail.html', { 'dev': dev })
+
+class DevCreate(CreateView):
+    model = Dev
+    fields = '__all__'
