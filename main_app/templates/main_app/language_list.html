@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Language List</h1>
-    {% for lnaguage in language_list %}
+    {% for language in language_list %}
     <a href="{url 'languages_detail' language.id}">
         <div class="card">
             <div class="card-content">
-                <p>Name: {{ language.name }}</p>
+                <h4>{{ language.name }}</h4>
             </div>
         </div>
     </a>

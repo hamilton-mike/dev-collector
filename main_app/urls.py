@@ -2,6 +2,7 @@ from django.urls import path
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
@@ -11,9 +12,9 @@ urlpatterns = [
     path('devs/<int:pk>/update', views.DevUpdate.as_view(), name='devs_update'),
     path('devs/<int:pk>/delete', views.DevDelete.as_view(), name='devs_delete'),
     path('devs/<int:dev_id>/add_interview', views.add_interview, name='add_interview'),
-    path('laguages/', views.LanguageList.as_view(), name='languages_list'),
-    path('laguages/create', views.LanguageCreate.as_view(), name='languages_create'),
-    path('laguages/<int:pk>', views.LanguageDetail.as_view(), name='languages_detail'),
-    path('laguages/<int:pk>/update', views.LanguageUpdate.as_view(), name='languages_update'),
-    path('laguages/<int:pk>/delete', views.LanguageDelete.as_view(), name='languages_delete')
+    path('languages/', views.LanguageList.as_view(), name='languages_list'),
+    path('languages/create', views.LanguageCreate.as_view(), name='languages_create'),
+    path('languages/<int:pk>', views.LanguageDetail.as_view(), name='languages_detail'),
+    path('languages/<int:pk>/update', views.LanguageUpdate.as_view(), name='languages_update'),
+    path('languages/<int:pk>/delete', views.LanguageDelete.as_view(), name='languages_delete')
 ]
