@@ -48,7 +48,32 @@
             </tbody>
         </table>
     </div>
+
+    <hr />
+
+    <div class="col s6">
+        <h3>{{ dev.name }} Language's</h3>
+        {% if languages.count %}
+            {% for language in languages.all %}
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">{{ language.name }}</div>
+                    <div class="card-action">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h5>Already Has All Languages Available</h5>
+        {% endif %}
+    </div>
+
 </div>
+
 <script>
     const dateEL = document.getElementById('id_date');
     M.Datepicker.init(dateEL, {
@@ -61,4 +86,5 @@
     const selectEl = document.getElementById('id_stage');
     M.FormSelect.init(selectEl)
 </script>
+
 {% endblock %}
