@@ -35,5 +35,15 @@ class Interview(models.Model):
     stage = models.CharField(max_length=3, choices=ROUNDS, default=ROUNDS[0][0])
     dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-date']
+
     def __str__(self):
         return f'{self.get_stage_display()} on {self.date}'
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Photo of dev_id: {self.dev_id} @{self.url}'
