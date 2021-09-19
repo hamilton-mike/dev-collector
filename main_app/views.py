@@ -36,6 +36,10 @@ class DevCreate(CreateView):
     model = Dev
     fields = ['name', 'location', 'age', 'bio', 'remote']
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class DevUpdate(UpdateView):
     model = Dev
     fields = ['location', 'bio', 'remote']
