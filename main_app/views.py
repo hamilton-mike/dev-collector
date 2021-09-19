@@ -22,7 +22,7 @@ class DevCreate(CreateView):
 
 class DevUpdate(UpdateView):
     model = Dev
-    fields = ['name', 'location', 'age', 'bio', 'remote']
+    fields = ['location', 'bio', 'remote']
 
 class DevDelete(DeleteView):
     model = Dev
