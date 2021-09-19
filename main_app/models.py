@@ -1,10 +1,12 @@
 from django.db import models
 from django.urls import reverse
+
 ROUNDS = (
     ('1st', 'First Round'),
     ('2nd', 'Second Round'),
     ('3rd', 'Final Round')
 )
+
 class Dev(models.Model):
     name = models.CharField(max_length=30)
     location = models.CharField(max_length=30)
@@ -19,7 +21,7 @@ class Dev(models.Model):
         return reverse('detail', kwargs={'dev_id': self.id})
 
 class Interview(models.Model):
-    date = models.DateField()
+    date = models.DateField('Interview Date:')
     role = models.CharField(max_length=3, choices=ROUNDS, default=ROUNDS[0][0])
     dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
 
