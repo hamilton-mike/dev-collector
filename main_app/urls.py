@@ -16,5 +16,6 @@ urlpatterns = [
     path('languages/create', views.LanguageCreate.as_view(), name='languages_create'),
     path('languages/<int:pk>', views.LanguageDetail.as_view(), name='languages_detail'),
     path('languages/<int:pk>/update', views.LanguageUpdate.as_view(), name='languages_update'),
-    path('languages/<int:pk>/delete', views.LanguageDelete.as_view(), name='languages_delete')
+    path('languages/<int:pk>/delete', views.LanguageDelete.as_view(), name='languages_delete'),
+    path('devs/<int:dev_id>/assoc_language/<int:language_id>/', views.assoc_language, name='assoc_language'),
 ]

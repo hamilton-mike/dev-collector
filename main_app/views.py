@@ -15,13 +15,21 @@ def devs_index(request):
     return render(request, 'devs/index.html', { 'devs': devs })
 
 def devs_detail(request, dev_id):
-    dev = Dev.objects.get(id=dev_id)
-    interview_form = InterviewForm()
-    return render(request, 'devs/detail.html', { 'dev': dev ,  'interview_form': interview_form })
+    try:
+        dev = Dev.objects.get(id=dev_id)
+        languages_dev_doesnt_have = Language.objects.exclude(id__in = dev.languages.all().values_list('id'))
+        interview_form = InterviewForm()
+        return render(request, 'devs/detail.html', {
+            'dev': dev ,
+            'interview_form': interview_form,
+            'languages': languages_dev_doesnt_have
+        })
+    except(Dev.DoesNotExist):
+        return redirect('/devs')
 
 class DevCreate(CreateView):
     model = Dev
-    fields = '__all__'
+    fields = ['name', 'location', 'age', 'bio', 'remote']
 
 class DevUpdate(UpdateView):
     model = Dev
@@ -58,3 +66,7 @@ class LanguageUpdate(UpdateView):
 class LanguageDelete(DeleteView):
     model = Language
     success_url = '/languages'
+
+def assoc_language(request, dev_id, language_id):
+    Dev.objects.get(id=dev_id).languages.add(language_id)
+    return redirect('detail', dev_id=dev_id)

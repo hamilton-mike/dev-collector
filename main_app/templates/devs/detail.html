@@ -51,26 +51,47 @@
 
     <hr />
 
-    <div class="col s6">
-        <h3>{{ dev.name }} Language's</h3>
-        {% if languages.count %}
-            {% for language in languages.all %}
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-title">{{ language.name }}</div>
-                    <div class="card-action">
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn">Add</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+<div class="col s6">
+    <h3>{{ dev.name }}'s Language's</h3>
+    {% if dev.languages.count %}
+    {% for language in dev.languages.all %}
+    <div class="card">
+
+        <div class="card-content">
+            <span class="card-title">{{ language.name }}</span>
+        </div>
+
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>No languages :(</h5>
+    {% endif %}
+</div>
+
+<div class="col s6">
+    <h3>Available languages</h3>
+    {% if languages.count %}
+    {% for language in languages.all %}
+    <div class="card">
+
+        <div class="card-content">
+            <span class="card-title">{{ language.name }}</span>
+        </div>
+
+        <div class="card-action">
+            <form action="{% url 'assoc_language' dev.id language.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+            </form>
+        </div>
+
+        {% endfor %}
         {% else %}
-            <h5>Already Has All Languages Available</h5>
+        <h5>{{dev.name}} Already Has All Languages Available</h5>
         {% endif %}
     </div>
+
+</div>
 
 </div>
 
