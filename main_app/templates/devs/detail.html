@@ -24,6 +24,20 @@
                 </div>
             </div>
         </div>
+
+        {% for photo in dev.photo_set.all %}
+            <img src="{{ photo.url }}" class="responsive-img card-panel">
+        {% empty %}
+            <div class="card-panel teal-text center-align">📸 No Photo Uploaded 📸 </div>
+        {% endfor %}
+
+        <form action="{% url 'add_photo' dev.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+            {% csrf_token %}
+            <input type="file" name="photo-file">
+            <br><br>
+            <input type="submit" value="Upload Photo" class="btn">
+        </form>
+
     </div>
 
     <div class="col s6">
