@@ -7,12 +7,22 @@ ROUNDS = (
     ('3rd', 'Final Round')
 )
 
+class Language(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('languages_detail', kwargs={'pk': self.id})
+
 class Dev(models.Model):
     name = models.CharField(max_length=30)
     location = models.CharField(max_length=30)
     age = models.IntegerField()
     bio = models.TextField(max_length=400)
     remote = models.BooleanField(default=False)
+    languages = models.ManyToManyField(Language)
 
     def __str__(self):
         return self.name

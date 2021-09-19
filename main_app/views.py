@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Dev
+from django.views.generic import ListView, DetailView
+from .models import Dev, Language
 from .forms import InterviewForm
 
 def home(request):
@@ -39,3 +40,21 @@ def add_interview(request, dev_id):
         new_interview.save()
 
     return redirect('detail', dev_id=dev_id)
+
+class LanguageList(ListView):
+    model = Language
+
+class LanguageDetail(DetailView):
+    model = Language
+
+class LanguageCreate(CreateView):
+    model = Language
+    fields = ['name']
+
+class LanguageUpdate(UpdateView):
+    model = Language
+    fields = ['name']
+
+class LanguageDelete(DeleteView):
+    model = Language
+    success_url = '/languages'
