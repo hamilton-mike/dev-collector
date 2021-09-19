@@ -27,6 +27,11 @@
     </div>
 
     <div class="col s6">
+        <form action="{% url 'add_interview' dev.id %}" method="post">
+            {% csrf_token %}
+            {{ interview_form.as.p }}
+            <input type="submit" value="Add Interview Round" class="btn">
+        </form>
         <table class="striped">
             <thead>
                 <tr>
@@ -45,5 +50,16 @@
         </table>
     </div>
 </div>
+<script>
+    const dateEL = document.getElementById('id_date');
+    M.Datepicker.init(dateEL, {
+        format: "yyyy-mm-dd",
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
 
+    const selectEl = document.getElementById('id_stage');
+    M.FormSelect.init(selectEl)
+</script>
 {% endblock %}

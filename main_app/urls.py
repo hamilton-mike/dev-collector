@@ -10,4 +10,5 @@ urlpatterns = [
     path('devs/create', views.DevCreate.as_view(), name='devs_create'),
     path('devs/<int:pk>/update', views.DevUpdate.as_view(), name='devs_update'),
     path('devs/<int:pk>/delete', views.DevDelete.as_view(), name='devs_delete'),
+    path('devs/<int:dev_id>/add_interview', views.add_interview, name='add_interview'),
 ]

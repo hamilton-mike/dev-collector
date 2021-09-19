@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Dev
+from .forms import InterviewForm
 
 def home(request):
     return render(request, 'home.html')
@@ -14,7 +15,8 @@ def devs_index(request):
 
 def devs_detail(request, dev_id):
     dev = Dev.objects.get(id=dev_id)
-    return render(request, 'devs/detail.html', { 'dev': dev })
+    interview_form = InterviewForm()
+    return render(request, 'devs/detail.html', { 'dev': dev ,  'interview_form': interview_form })
 
 class DevCreate(CreateView):
     model = Dev
@@ -27,3 +29,13 @@ class DevUpdate(UpdateView):
 class DevDelete(DeleteView):
     model = Dev
     success_url = '/devs/'
+
+def add_interview(request, dev_id):
+    form = InterviewForm(request.POST)
+    print(form.is_valid())
+    if form.is_valid():
+        new_interview = form.save(commit=False)
+        new_interview.dev_id = dev_id
+        new_interview.save()
+
+    return redirect('detail', dev_id=dev_id)

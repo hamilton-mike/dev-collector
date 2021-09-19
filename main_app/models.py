@@ -21,7 +21,7 @@ class Dev(models.Model):
         return reverse('detail', kwargs={'dev_id': self.id})
 
 class Interview(models.Model):
-    date = models.DateField('Interview Date:')
+    date = models.DateField('Interview Date')
     stage = models.CharField(max_length=3, choices=ROUNDS, default=ROUNDS[0][0])
     dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
 
