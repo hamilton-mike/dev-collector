@@ -15,6 +15,10 @@
                 {% endif %}
         <p>Bio: {{ dev.bio }}</p>
         <p>Looking for Remote Work: {{ dev.remote }}</p>
+        <div class="card-action">
+            <a href="{% url 'devs_update' dev.id %}"></a>
+            <a href="{% url 'devs_delete' dev.id %}"></a>
+        </div>
     </div>
 </div>
 
