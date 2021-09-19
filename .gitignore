@@ -1,4 +1,3 @@
-main_app/__pycache__
 devcollector/__pycache__
-main_app/migrations/__pycache__
+dev-collector/main_app/__pycache__
 .env
