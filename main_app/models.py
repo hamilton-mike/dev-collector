@@ -22,8 +22,8 @@ class Dev(models.Model):
 
 class Interview(models.Model):
     date = models.DateField('Interview Date:')
-    role = models.CharField(max_length=3, choices=ROUNDS, default=ROUNDS[0][0])
+    stage = models.CharField(max_length=3, choices=ROUNDS, default=ROUNDS[0][0])
     dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.get_role_display()} on {self.date}'
+        return f'{self.get_stage_display()} on {self.date}'

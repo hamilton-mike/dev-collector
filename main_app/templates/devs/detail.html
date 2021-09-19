@@ -2,24 +2,47 @@
 {% block content %}
 
 
-<h1 class="blue-text">{{ dev.name }} Page</h1>
+<h1 class="blue-text">{{ dev.name }}'s Page</h1>
 
-<div class="card">
-    <div class="card-content">
-        <div class="center">
-            <p>Location: {{ dev.location }}</p>
-            {% if dev.age <= 24 %} <p>Experience: Junior Dev</p>
-                {% elif dev.age > 24 and dev.age < 35 %} <p>Experience: Mid Level Dev</p>
-                    {% else %}
-                    <p>Experience: Senior Dev</p>
-                    {% endif %}
-            <p>Bio: {{ dev.bio }}</p>
-            <p>Looking for Remote Work: {{ dev.remote }}</p>
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <div class="center">
+                    <p>Location: {{ dev.location }}</p>
+                    {% if dev.age <= 24 %} <p>Experience: Junior Dev</p>
+                        {% elif dev.age > 24 and dev.age < 35 %} <p>Experience: Mid Level Dev</p>
+                            {% else %}
+                            <p>Experience: Senior Dev</p>
+                            {% endif %}
+                    <p>Bio: {{ dev.bio }}</p>
+                    <p>Looking for Remote Work: {{ dev.remote }}</p>
+                </div>
+                <div class="card-action">
+                    <a href="{% url 'devs_update' dev.id %}">Edit</a>
+                    <a href="{% url 'devs_delete' dev.id %}">Delete</a>
+                </div>
+            </div>
         </div>
-        <div class="card-action">
-            <a href="{% url 'devs_update' dev.id %}">Edit</a>
-            <a href="{% url 'devs_delete' dev.id %}">Delete</a>
-        </div>
+    </div>
+
+    <div class="col s6">
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Stage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for interview in dev.interview_set.all %}
+                <tr>
+                    <td>{{interview.date}}</td>
+                    <td>{{interview.get_stage_display}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
