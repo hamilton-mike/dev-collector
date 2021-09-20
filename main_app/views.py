@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Dev, Language, Photo
 from .forms import InterviewForm
 import os
@@ -17,6 +18,7 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def devs_index(request):
     devs = Dev.objects.all()
     return render(request, 'devs/index.html', { 'devs': devs })
@@ -50,6 +52,7 @@ class DevDelete(DeleteView):
     model = Dev
     success_url = '/devs/'
 
+@login_required
 def add_interview(request, dev_id):
     form = InterviewForm(request.POST)
     print(form.is_valid())
@@ -78,10 +81,12 @@ class LanguageDelete(DeleteView):
     model = Language
     success_url = '/languages'
 
+@login_required
 def assoc_language(request, dev_id, language_id):
     Dev.objects.get(id=dev_id).languages.add(language_id)
     return redirect('detail', dev_id=dev_id)
 
+@login_required
 def add_photo(request, dev_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
