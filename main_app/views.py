@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Dev, Language, Photo
 from .forms import InterviewForm
 import os
@@ -20,7 +21,7 @@ def about(request):
 
 @login_required
 def devs_index(request):
-    devs = Dev.objects.all()
+    devs = Dev.objects.filter(user=request.user)
     return render(request, 'devs/index.html', { 'devs': devs })
 
 def devs_detail(request, dev_id):
@@ -36,7 +37,7 @@ def devs_detail(request, dev_id):
     except(Dev.DoesNotExist):
         return redirect('/devs')
 
-class DevCreate(CreateView):
+class DevCreate(LoginRequiredMixin, CreateView):
     model = Dev
     fields = ['name', 'location', 'age', 'bio', 'remote']
 
@@ -44,11 +45,11 @@ class DevCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class DevUpdate(UpdateView):
+class DevUpdate(LoginRequiredMixin, UpdateView):
     model = Dev
     fields = ['location', 'bio', 'remote']
 
-class DevDelete(DeleteView):
+class DevDelete(LoginRequiredMixin, DeleteView):
     model = Dev
     success_url = '/devs/'
 
@@ -63,21 +64,21 @@ def add_interview(request, dev_id):
 
     return redirect('detail', dev_id=dev_id)
 
-class LanguageList(ListView):
+class LanguageList(LoginRequiredMixin, ListView):
     model = Language
 
-class LanguageDetail(DetailView):
+class LanguageDetail(LoginRequiredMixin, DetailView):
     model = Language
 
-class LanguageCreate(CreateView):
-    model = Language
-    fields = ['name']
-
-class LanguageUpdate(UpdateView):
+class LanguageCreate(LoginRequiredMixin, CreateView):
     model = Language
     fields = ['name']
 
-class LanguageDelete(DeleteView):
+class LanguageUpdate(LoginRequiredMixin, UpdateView):
+    model = Language
+    fields = ['name']
+
+class LanguageDelete(LoginRequiredMixin, DeleteView):
     model = Language
     success_url = '/languages'
 
