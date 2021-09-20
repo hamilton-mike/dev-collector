@@ -60,4 +60,4 @@ class Photo(models.Model):
         return f'Photo of dev_id: {self.dev_id} @{self.url}'
 ```
 
-![Alt text](Users/Hamilton/Desktop/django-project)
+![django-project](https://user-images.githubusercontent.com/62978640/133955977-ecd64197-8eb7-46e4-8d24-4e4c126d8264.png)
