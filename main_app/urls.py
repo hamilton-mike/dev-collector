@@ -18,5 +18,6 @@ urlpatterns = [
     path('languages/<int:pk>/delete', views.LanguageDelete.as_view(), name='languages_delete'),
     path('devs/<int:dev_id>/assoc_language/<int:language_id>/', views.assoc_language, name='assoc_language'),
     path('devs/<int:dev_id>/add_photo/', views.add_photo, name='add_photo'),
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup', views.signup, name='signup')
 ]
